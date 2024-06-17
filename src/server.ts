@@ -5,6 +5,18 @@ import { appRouter } from "./trpc/app";
 import { handlePage } from "./internal/serverPageHandler";
 
 const server = new Hono()
+  // Log every request
+  .use("*", async (c, next) => {
+    console.log(`[${c.req.method}] ${c.req.url}`);
+    if (process.env["VERCEL"]) {
+      // Add the base url to the request
+      const host = c.req.header("VERCEL_URL");
+      // @ts-ignore
+      c.req.url = `https://${host}${c.req.url}`;
+      console.log(`UPDATE: [${c.req.method}] ${c.req.url}`);
+    }
+    return next();
+  })
   .use("/assets/*", serveStatic({ root: "./dist/public" }))
   .use("/favicon.ico", serveStatic({ path: "./dist/public/favicon.ico" }))
 
