@@ -23,6 +23,10 @@ const server = new Hono()
     }),
   );
 
+server.notFound(async (c) => {
+  return c.json({ error: "Not found" });
+});
+
 // Free to use this hono server for whatever you want (redirect urls, etc)
 
 // .get("*", handlePage);
