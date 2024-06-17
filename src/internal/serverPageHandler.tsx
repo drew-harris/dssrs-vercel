@@ -4,6 +4,7 @@ import { stream } from "hono/streaming";
 import { drewsRenderToStream } from "./streamer";
 
 export const handlePage = async (c: Context) => {
+  console.log("Handling page", c.req.url);
   c.header("Content-Type", "text/html; charset=utf-8");
   try {
     const { app, router } = await entry.render(c.req.raw);
