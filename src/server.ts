@@ -7,6 +7,7 @@ const server = new Hono()
   // Log every request
   .use("*", async (c, next) => {
     console.log(`[${c.req.method}] ${c.req.url}`);
+    return await next();
   })
 
   .get("*", async (c) => {
