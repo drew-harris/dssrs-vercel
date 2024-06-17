@@ -10,7 +10,7 @@ const server = new Hono()
     console.log(`[${c.req.method}] ${c.req.url}`);
     if (process.env["VERCEL"]) {
       // Add the base url to the request
-      const host = c.req.header("VERCEL_URL");
+      const host = process.env["VERCEL_PROJECT_PRODUCTION_URL"];
       // @ts-ignore
       c.req.url = `https://${host}${c.req.url}`;
       console.log(`UPDATE: [${c.req.method}] ${c.req.url}`);
