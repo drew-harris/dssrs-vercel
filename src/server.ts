@@ -30,10 +30,4 @@ server.notFound(async (c) => {
 
 let result = null;
 
-if (import.meta.env.DEV) {
-  result = server;
-} else {
-  result = server.fetch;
-}
-
-export default result;
+export default server.fetch;

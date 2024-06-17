@@ -31,7 +31,7 @@ export default defineConfig(({ isSsrBuild, command }) => {
     vercel: {
       additionalEndpoints: [
         {
-          source: "dist/server.js",
+          source: "src/server.ts",
           destination: "test",
         },
       ],
