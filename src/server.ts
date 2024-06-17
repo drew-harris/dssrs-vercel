@@ -9,16 +9,9 @@ const server = new Hono()
     console.log(`[${c.req.method}] ${c.req.url}`);
   })
 
-  .get("test", async (c) => {
+  .get("*", async (c) => {
     return c.json({ test: "working" });
-  })
-
-  .use(
-    "/trpc/*",
-    trpcServer({
-      router: appRouter,
-    }),
-  );
+  });
 
 server.notFound(async (c) => {
   return c.json({ error: "Not found" });
