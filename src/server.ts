@@ -8,14 +8,6 @@ const server = new Hono()
   // Log every request
   .use("*", async (c, next) => {
     console.log(`[${c.req.method}] ${c.req.url}`);
-    if (process.env["VERCEL"]) {
-      // Add the base url to the request
-      const host = process.env["VERCEL_PROJECT_PRODUCTION_URL"];
-      // @ts-ignore
-      c.req.url = `https://${host}${c.req.url}`;
-      console.log(`UPDATE: [${c.req.method}] ${c.req.url}`);
-    }
-    return next();
   })
   .use("/assets/*", serveStatic({ root: "./dist/public" }))
   .use("/favicon.ico", serveStatic({ path: "./dist/public/favicon.ico" }))
@@ -29,11 +21,11 @@ const server = new Hono()
     trpcServer({
       router: appRouter,
     }),
-  )
+  );
 
-  // Free to use this hono server for whatever you want (redirect urls, etc)
+// Free to use this hono server for whatever you want (redirect urls, etc)
 
-  .get("*", handlePage);
+// .get("*", handlePage);
 
 let result = null;
 
